@@ -1,5 +1,7 @@
 <?php
 
+use App\Category;
+use App\Post;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,6 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        $posts = factory(Post::class, 5)->create();
+        $category = factory(Category::class, 3)->create();
+
+        foreach($posts as $post){
+            foreach($category as $cat){
+                $post->categories()->attach($cat->id);
+            }
+        }
+
     }
 }
