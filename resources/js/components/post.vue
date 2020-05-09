@@ -1,14 +1,14 @@
 <template>
-    <div>
+    <div class="flex flex-col items-center">
         <div v-for="post in posts" :key="post.title" class="flex flex-col items-center w-4/12 p-4 bg-gray-100 shadow rounded-sm my-4">
             <div>
                 <h4 class="font-bold text-gray-900 tracking-tight text-2xl leading-9" v-text="post.title"></h4>
             </div>
             <div>
-                <img v-bind:src="post.image">
+                <img v-bind:src="post.media_path">
                 <div class="flex justify-between items-center">
                     <div>
-                        <span class="inline-flex items-center px-2 py-1 rounded text-md font-medium leading-4 bg-purple-100 text-purple-800" v-text="post.vote"></span>
+                        <span class="inline-flex items-center px-2 py-1 rounded text-md font-medium leading-4 bg-purple-100 text-purple-800">{{ post.vote }} points</span>
                     </div>
                     <div>
                         <span class="relative z-0 inline-flex shadow-sm">
