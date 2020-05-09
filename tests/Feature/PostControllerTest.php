@@ -33,7 +33,6 @@ class PostControllerTest extends TestCase
     {
 
         factory(Category::class,3)->create();
-        $this->withoutExceptionHandling();
         $data =
             [
                 'title' => 'Easy Rampage',
@@ -46,20 +45,9 @@ class PostControllerTest extends TestCase
                     ->assertRedirect('/');
 
         $this->assertDatabaseHas('posts', [
-            'id' => 1,
             'title' => 'Easy Rampage',
             'media_path' => 'www.google.com',
             'description' => 'none',
-        ])
-        ->assertDatabaseHas('category_post',
-        [
-            'post_id' => 1,
-            'category_id' => 1
-        ])
-        ->assertDatabaseHas('category_post',
-        [
-            'post_id' => 1,
-            'category_id' => 2
         ]);
     }
 }
