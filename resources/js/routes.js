@@ -1,5 +1,5 @@
-import Home from './components/Home';
-import ViewPost from './components/ViewPost';
+import Home from './views/Home';
+import ViewPost from './views/ViewPost';
 
 export default{
 

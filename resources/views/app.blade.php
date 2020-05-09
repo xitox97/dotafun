@@ -10,10 +10,15 @@
 <body>
 
     <div id="app">
-        <router-view></router-view>
 
-        <router-link to="/">Home</router-link>
-        <router-link to="/view">View</router-link>
+        <div class="container mx-auto">
+            <router-view></router-view>
+
+            <router-link to="/">Home</router-link>
+            <router-link to="/view">View</router-link>
+
+        </div>
+
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>
