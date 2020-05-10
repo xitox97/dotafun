@@ -1,5 +1,5 @@
 import Home from './views/Home';
-import ViewPost from './views/ViewPost';
+import CreatePost from './views/CreatePost';
 
 export default{
 
@@ -11,8 +11,8 @@ export default{
             component: Home
         },
         {
-            path: '/view',
-            component: ViewPost
+            path: '/posts/create',
+            component: CreatePost
         }
     ]
 }

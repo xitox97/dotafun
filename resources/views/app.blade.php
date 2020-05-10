@@ -12,11 +12,9 @@
     <div id="app">
 
         <div class="container mx-auto">
-            <router-view></router-view>
-
             <router-link to="/">Home</router-link>
-            <router-link to="/view">View</router-link>
-
+            <router-link to="/posts/create">New Post</router-link>
+            <router-view></router-view>
         </div>
 
     </div>
