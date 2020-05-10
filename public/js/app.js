@@ -2009,9 +2009,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  data: function data() {
+    return {
+      title: null,
+      media: null,
+      description: null,
+      success: null
+    };
+  },
+  methods: {
+    onImageChange: function onImageChange(e) {
+      console.log(e.target.files[0]);
+      this.media = e.target.files[0];
+    },
+    formSubmit: function formSubmit(e) {
+      e.preventDefault();
+      var currentObj = this;
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      };
+      var formData = new FormData();
+      formData.append('title', this.title);
+      formData.append('description', this.description);
+      formData.append('media', this.media);
+      axios.post('/api/posts', formData, config).then(function (response) {
+        console.log(response.data.success);
+        currentObj.success = response.data.success;
+      })["catch"](function (error) {
+        console.log(error.response.data);
+        currentObj.output = error;
+      });
+    }
   }
 });
 
@@ -19797,60 +19832,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/2 bg-gray-200 p-4" }, [
-      _c("form", { attrs: { action: "#", method: "POST" } }, [
+  return _c("div", { staticClass: "w-1/2 bg-gray-200 p-4" }, [
+    _c(
+      "form",
+      {
+        attrs: { enctype: "multipart/form-data" },
+        on: { submit: _vm.formSubmit }
+      },
+      [
+        _c("p", { staticClass: "text-green-300 font-semibold text-lg" }, [
+          _vm._v(_vm._s(_vm.success))
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "grid grid-cols-5 row-gap-4" }, [
-          _c("div", { staticClass: "col-span-2" }, [
-            _c(
-              "label",
-              { staticClass: "font-medium text-lg", attrs: { for: "" } },
-              [_vm._v("\n                    Title\n                ")]
-            )
-          ]),
+          _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "col-span-3" }, [
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.title,
+                  expression: "title"
+                }
+              ],
               staticClass:
                 "bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal",
-              attrs: { type: "text" }
+              attrs: { type: "text" },
+              domProps: { value: _vm.title },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.title = $event.target.value
+                }
+              }
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-span-2" }, [
-            _c(
-              "label",
-              { staticClass: "font-medium text-lg", attrs: { for: "" } },
-              [_vm._v("\n                    Description\n                ")]
-            )
-          ]),
+          _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "col-span-3" }, [
             _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description,
+                  expression: "description"
+                }
+              ],
               staticClass:
-                "bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
+                "bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal",
+              domProps: { value: _vm.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.description = $event.target.value
+                }
+              }
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-span-2" }, [
-            _c(
-              "label",
-              { staticClass: "font-medium text-lg", attrs: { for: "" } },
-              [_vm._v("\n                    Title\n                ")]
-            )
-          ]),
+          _vm._m(2),
           _vm._v(" "),
           _c("div", { staticClass: "col-span-3" }, [
             _c("input", {
               staticClass:
                 "bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal",
-              attrs: { type: "file" }
+              attrs: { type: "file" },
+              on: { change: _vm.onImageChange }
             })
           ])
         ]),
@@ -19863,6 +19918,38 @@ var staticRenderFns = [
           },
           [_vm._v("\n            Submit\n        ")]
         )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-span-2" }, [
+      _c("label", { staticClass: "font-medium text-lg", attrs: { for: "" } }, [
+        _vm._v("\n                    Title\n                ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-span-2" }, [
+      _c("label", { staticClass: "font-medium text-lg", attrs: { for: "" } }, [
+        _vm._v("\n                    Description\n                ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-span-2" }, [
+      _c("label", { staticClass: "font-medium text-lg", attrs: { for: "" } }, [
+        _vm._v("\n                    Image / Video\n                ")
       ])
     ])
   }

@@ -36,20 +36,23 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
+        $data = $request->validate([
             'title' => 'required|max:255',
-            'description' => 'sometimes|required|max:255',
-            'category.*' => 'required',
-            'media_path' => 'required',
+            'description' => 'sometimes|required|max:255'
         ]);
 
-        $post = Post::create($request->except('category'));
+        $post = Post::create($data);
 
-        foreach($request->category as $category){
-            $post->categories()->attach($category);
-        }
+        $post
+            ->addMediaFromRequest('media') //starting method
+            ->preservingOriginal() //middle method
+            ->toMediaCollection(); //finishing method
 
-        return redirect('/');
+        // foreach($request->category as $category){
+        //     $post->categories()->attach($category);
+        // }
+
+        return response()->json('success',200);
 
     }
 
