@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index', [ 'posts' => Post::all() ]);
+        return response()->json(Post::with('categories')->get());
     }
 
     /**
