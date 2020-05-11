@@ -1949,6 +1949,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /**
  * Stat component -- specify the widget icon, title and value.
@@ -19710,7 +19714,21 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", [
-            _c("img", { attrs: { src: post.media_path } }),
+            post.media_type == "image"
+              ? _c("img", { attrs: { src: post.media_path } })
+              : _c(
+                  "video",
+                  {
+                    attrs: { controls: "", muted: "" },
+                    domProps: { muted: true }
+                  },
+                  [
+                    _c("source", { attrs: { src: post.media_path } }),
+                    _vm._v(
+                      "\n                Your browser does not support HTML video.\n                "
+                    )
+                  ]
+                ),
             _vm._v(" "),
             _c("div", { staticClass: "flex justify-between items-center" }, [
               _c("div", [

@@ -5,7 +5,11 @@
                 <h4 class="font-bold text-gray-900 tracking-tight text-2xl leading-9" v-text="post.title"></h4>
             </div>
             <div>
-                <img v-bind:src="post.media_path">
+                <img v-bind:src="post.media_path" v-if="post.media_type == 'image'">
+                <video controls muted v-else>
+                    <source v-bind:src="post.media_path">
+                    Your browser does not support HTML video.
+                    </video>
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="inline-flex items-center px-2 py-1 rounded text-md font-medium leading-4 bg-purple-100 text-purple-800">{{ post.vote }} points</span>

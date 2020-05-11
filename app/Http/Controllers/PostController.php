@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -47,6 +48,13 @@ class PostController extends Controller
             ->addMediaFromRequest('media') //starting method
             ->preservingOriginal() //middle method
             ->toMediaCollection(); //finishing method
+
+        $mediaItems = $post->getMedia();
+
+        $media_type = Str::contains($mediaItems[0]->mime_type, 'video') ? 'video' : 'image';
+        $post->media_path = $post->getFirstMediaUrl();
+        $post->media_type = $media_type;
+        $post->save();
 
         // foreach($request->category as $category){
         //     $post->categories()->attach($category);
