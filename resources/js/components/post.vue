@@ -33,6 +33,11 @@
 
                 </div>
                 <div>
+                    <span v-for="category in post.categories" :key="category.id">
+                    <span class="mt-2 text-base leading-6 text-gray-500 mx-2" v-text="category.name"></span>
+                    </span>
+                </div>
+                <div>
                     <p class="mt-2 text-base leading-6 text-gray-500" v-text="post.description"></p>
                 </div>
             </div>

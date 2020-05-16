@@ -1953,6 +1953,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /**
  * Stat component -- specify the widget icon, title and value.
@@ -2014,16 +2019,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log('Component mounted.');
+    var _this = this;
+
+    axios.get('/api/categories').then(function (response) {
+      return _this.categories = response.data;
+    });
   },
   data: function data() {
     return {
       title: null,
       media: null,
       description: null,
-      success: null
+      success: null,
+      categories: [],
+      checkedCat: []
     };
   },
   methods: {
@@ -2043,11 +2067,16 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('title', this.title);
       formData.append('description', this.description);
       formData.append('media', this.media);
+
+      for (var i = 0; i < this.checkedCat.length; i++) {
+        formData.append('category[]', this.checkedCat[i]);
+      }
+
       axios.post('/api/posts', formData, config).then(function (response) {
-        console.log(response.data.success);
+        console.log(response);
         currentObj.success = response.data.success;
       })["catch"](function (error) {
-        console.log(error.response.data);
+        console.log(error);
         currentObj.output = error;
       });
     }
@@ -19813,6 +19842,19 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
+            _c(
+              "div",
+              _vm._l(post.categories, function(category) {
+                return _c("span", { key: category.id }, [
+                  _c("span", {
+                    staticClass: "mt-2 text-base leading-6 text-gray-500 mx-2",
+                    domProps: { textContent: _vm._s(category.name) }
+                  })
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
             _c("div", [
               _c("p", {
                 staticClass: "mt-2 text-base leading-6 text-gray-500",
@@ -19925,7 +19967,65 @@ var render = function() {
               attrs: { type: "file" },
               on: { change: _vm.onImageChange }
             })
-          ])
+          ]),
+          _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-span-3" },
+            [
+              _vm._l(_vm.categories, function(category) {
+                return _c("div", { key: category.id }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.checkedCat,
+                        expression: "checkedCat"
+                      }
+                    ],
+                    attrs: { type: "checkbox", id: "jack" },
+                    domProps: {
+                      value: category.id,
+                      checked: Array.isArray(_vm.checkedCat)
+                        ? _vm._i(_vm.checkedCat, category.id) > -1
+                        : _vm.checkedCat
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$a = _vm.checkedCat,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = category.id,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 && (_vm.checkedCat = $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              (_vm.checkedCat = $$a
+                                .slice(0, $$i)
+                                .concat($$a.slice($$i + 1)))
+                          }
+                        } else {
+                          _vm.checkedCat = $$c
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", [_vm._v(_vm._s(category.name))])
+                ])
+              }),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("span", [_vm._v("Checked names: " + _vm._s(_vm.checkedCat))])
+            ],
+            2
+          )
         ]),
         _vm._v(" "),
         _c(
@@ -19968,6 +20068,16 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-span-2" }, [
       _c("label", { staticClass: "font-medium text-lg", attrs: { for: "" } }, [
         _vm._v("\n                    Image / Video\n                ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-span-2" }, [
+      _c("label", { staticClass: "font-medium text-lg", attrs: { for: "" } }, [
+        _vm._v("\n                    Category\n                ")
       ])
     ])
   }

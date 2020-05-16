@@ -36,7 +36,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
         $data = $request->validate([
             'title' => 'required|max:255',
             'description' => 'sometimes|required|max:255'
@@ -55,6 +54,8 @@ class PostController extends Controller
         $post->media_path = $post->getFirstMediaUrl();
         $post->media_type = $media_type;
         $post->save();
+
+        $post->categories()->attach($request->category);
 
         // foreach($request->category as $category){
         //     $post->categories()->attach($category);
