@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
@@ -12,11 +13,9 @@
     <div id="app">
 
         <div class="container mx-auto">
-            <router-view></router-view>
-
             <router-link to="/">Home</router-link>
-            <router-link to="/view">View</router-link>
-
+            <router-link to="/posts/create">New Post</router-link>
+            <router-view></router-view>
         </div>
 
     </div>

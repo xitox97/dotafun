@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -35,21 +36,32 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
-        $request->validate([
+        $data = $request->validate([
             'title' => 'required|max:255',
-            'description' => 'sometimes|required|max:255',
-            'category.*' => 'required',
-            'media_path' => 'required',
+            'description' => 'sometimes|required|max:255'
         ]);
 
-        $post = Post::create($request->except('category'));
+        $post = Post::create($data);
 
-        foreach($request->category as $category){
-            $post->categories()->attach($category);
-        }
+        $post
+            ->addMediaFromRequest('media') //starting method
+            ->preservingOriginal() //middle method
+            ->toMediaCollection(); //finishing method
 
-        return redirect('/');
+        $mediaItems = $post->getMedia();
+
+        $media_type = Str::contains($mediaItems[0]->mime_type, 'video') ? 'video' : 'image';
+        $post->media_path = $post->getFirstMediaUrl();
+        $post->media_type = $media_type;
+        $post->save();
+
+        $post->categories()->attach($request->category);
+
+        // foreach($request->category as $category){
+        //     $post->categories()->attach($category);
+        // }
+
+        return response()->json('success',200);
 
     }
 

@@ -13,5 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/{any?}', 'app');
+Route::view('/{any}', 'app')->where('any', '.*');
 //Route::post('/posts', 'PostController@store')->name('posts.store');
