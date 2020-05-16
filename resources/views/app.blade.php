@@ -8,16 +8,12 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-<body>
+<body style="background-color: black">
 
-    <div id="app">
-
-        <div class="container mx-auto">
-            <router-link to="/">Home</router-link>
-            <router-link to="/posts/create">New Post</router-link>
+    <div id="app" class="container">
+            {{-- <router-link to="/">Home</router-link>
+            <router-link to="/posts/create">New Post</router-link> --}}
             <router-view></router-view>
-        </div>
-
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>

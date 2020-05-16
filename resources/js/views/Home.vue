@@ -1,5 +1,6 @@
 <template>
     <div>
+        <navbar></navbar>
         <post :posts="posts"></post>
     </div>
 
@@ -7,10 +8,11 @@
 
 <script>
     import post from "../components/post";
-
+    import navbar from "./layouts/navbar";
     export default {
         components: {
-            post
+            post,
+            navbar
         },
         data() {
             return {

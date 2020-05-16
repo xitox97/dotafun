@@ -1,11 +1,15 @@
 <template>
-    <div class="flex flex-col items-center">
-        <div v-for="post in posts" :key="post.title" class="flex flex-col items-center w-4/12 p-4 bg-gray-100 shadow rounded-sm my-4">
+
+<div >
+  <div v-for="post in posts" :key="post.title" class="columns">
+        <div class="column is-half is-offset-one-quarter content">
             <div>
-                <h4 class="font-bold text-gray-900 tracking-tight text-2xl leading-9" v-text="post.title"></h4>
+                <h1 class="is-white" v-text="post.title"></h1>
             </div>
             <div>
-                <img v-bind:src="post.media_path" v-if="post.media_type == 'image'">
+                <figure class="image is-square" v-if="post.media_type == 'image'">
+                <img v-bind:src="post.media_path">
+                </figure>
                 <video controls muted v-else>
                     <source v-bind:src="post.media_path">
                     Your browser does not support HTML video.
@@ -38,13 +42,16 @@
                     </span>
                 </div>
                 <div>
-                    <p class="mt-2 text-base leading-6 text-gray-500" v-text="post.description"></p>
+                    <p v-text="post.description" class="has-text-white has-text-justified"></p>
                 </div>
             </div>
             <div>
             </div>
         </div>
-    </div>
+  </div>
+</div>
+
+
 
 </template>
 
