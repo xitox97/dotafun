@@ -2175,6 +2175,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -35552,13 +35562,9 @@ var render = function() {
             "b-navbar-item",
             { attrs: { tag: "router-link", to: { path: "/" } } },
             [
-              _c("img", {
-                attrs: {
-                  src:
-                    "https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png",
-                  alt: "Lightweight UI components for Vue.js based on Bulma"
-                }
-              })
+              _c("p", { staticClass: "has-text-primary" }, [_vm._v("DotaFun")]),
+              _vm._v(" "),
+              _c("img", { attrs: { src: "/images/dotafun.png" } })
             ]
           )
         ],
@@ -35586,6 +35592,29 @@ var render = function() {
         "template",
         { slot: "end" },
         [
+          _c(
+            "b-navbar-item",
+            { attrs: { tag: "div" } },
+            [
+              _c(
+                "b-field",
+                [
+                  _c("b-input", {
+                    attrs: {
+                      placeholder: "Search...",
+                      type: "search",
+                      icon: "magnify",
+                      "icon-clickable": ""
+                    },
+                    on: { "icon-click": _vm.searchIconClick }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c("b-navbar-item", { attrs: { tag: "div" } }, [
             _c("div", { staticClass: "buttons" }, [
               _c("a", { staticClass: "button is-primary" }, [
